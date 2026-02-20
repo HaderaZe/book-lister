@@ -1,5 +1,6 @@
 import { useNavigate, Link } from 'react-router-dom';
-import { useMutation, ApolloError } from '@apollo/client';
+import { useMutation } from '@apollo/client';
+import type { ApolloError } from '@apollo/client';
 import { CREATE_BOOK } from '../graphql/mutations';
 import { GET_BOOKS } from '../graphql/queries';
 import { BookForm } from '../components/BookForm';

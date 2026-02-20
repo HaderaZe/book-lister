@@ -1,4 +1,5 @@
 import Book, { IBook } from '../models/Book';
+import User from '../models/User';
 
 interface BookFilterInput {
   genre?: string;
@@ -18,14 +19,12 @@ interface BooksArgs {
 
 export const bookResolvers = {
   Query: {
-    // Get all books with pagination and filtering
     books: async (_: any, args: BooksArgs) => {
       const page = args.page || 1;
       const limit = args.limit || 10;
       const skip = (page - 1) * limit;
       const filter = args.filter || {};
 
-      // Build MongoDB query
       const query: any = {};
 
       if (filter.genre) {
@@ -67,12 +66,10 @@ export const bookResolvers = {
       };
     },
 
-    // Get single book by ID
     book: async (_: any, { id }: { id: string }) => {
       return await Book.findById(id);
     },
 
-    // Search books
     searchBooks: async (_: any, { query, limit = 10 }: { query: string; limit?: number }) => {
       return await Book.find({
         $text: { $search: query },
@@ -81,7 +78,6 @@ export const bookResolvers = {
         .sort({ score: { $meta: 'textScore' } });
     },
 
-    // Get book statistics
     bookStats: async () => {
       const totalBooks = await Book.countDocuments();
 
@@ -143,7 +139,6 @@ export const bookResolvers = {
       };
     },
 
-    // Get all unique genres
     genres: async () => {
       const genres = await Book.distinct('genre');
       return genres;
@@ -151,35 +146,55 @@ export const bookResolvers = {
   },
 
   Mutation: {
-    // Create new book
-    createBook: async (_: any, { input }: { input: Partial<IBook> }) => {
-      const book = new Book(input);
+    createBook: async (_: any, { input }: { input: Partial<IBook> }, context: any) => {
+      if (!context.user) {
+        throw new Error('You must be logged in to create a book');
+      }
+
+      const book = new Book({
+        ...input,
+        createdBy: context.user.userId,
+      });
+
       await book.save();
       return book;
     },
 
-    // Update book
-    updateBook: async (_: any, { id, input }: { id: string; input: Partial<IBook> }) => {
-      const book = await Book.findByIdAndUpdate(
+    updateBook: async (_: any, { id, input }: { id: string; input: Partial<IBook> }, context: any) => {
+      if (!context.user) {
+        throw new Error('You must be logged in to update a book');
+      }
+
+      const book = await Book.findById(id);
+      
+      if (!book) {
+        throw new Error('Book not found');
+      }
+
+      const updatedBook = await Book.findByIdAndUpdate(
         id,
         { $set: input },
         { new: true, runValidators: true }
       );
 
+      return updatedBook;
+    },
+
+    deleteBook: async (_: any, { id }: { id: string }, context: any) => {
+      if (!context.user) {
+        throw new Error('You must be logged in to delete a book');
+      }
+
+      const book = await Book.findById(id);
+      
       if (!book) {
         throw new Error('Book not found');
       }
 
-      return book;
-    },
-
-    // Delete book
-    deleteBook: async (_: any, { id }: { id: string }) => {
       const result = await Book.findByIdAndDelete(id);
       return !!result;
     },
 
-    // Rate book
     rateBook: async (_: any, { id, rating }: { id: string; rating: number }) => {
       if (rating < 0 || rating > 5) {
         throw new Error('Rating must be between 0 and 5');
@@ -196,6 +211,13 @@ export const bookResolvers = {
       }
 
       return book;
+    },
+  },
+
+  Book: {
+    createdBy: async (parent: IBook) => {
+      if (!parent.createdBy) return null;
+      return await User.findById(parent.createdBy);
     },
   },
 };
