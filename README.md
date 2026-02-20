@@ -1,57 +1,88 @@
-# 📚 Book Lister
+# Book Lister
 
-A modern full-stack book management application with user authentication.
+Full-stack book management application with GraphQL API.
 
-## 🚀 Features
+## 🚀 Live Demo
 
-- 🔐 User Authentication (JWT)
-- 📖 Create, Read, Update, Delete books
-- 🔍 Search and filter books by genre, year, rating
-- ⭐ Rate books (1-5 stars)
-- 📊 Dashboard with statistics
-- 📱 Fully responsive design
+- **Frontend:** [https://book-lister-frontend.vercel.app](https://book-lister-frontend.vercel.app)
+- **Backend API:** [https://book-lister-api.vercel.app/graphql](https://book-lister-api.vercel.app/graphql)
 
-## 🛠️ Tech Stack
+## 📋 Tech Stack
 
-### Frontend
+**Frontend:**
 - React 18 + TypeScript
-- Apollo Client (GraphQL)
-- TailwindCSS
-- React Router
 - Vite
+- Apollo Client
+- Tailwind CSS
+- React Router
 
-### Backend
+**Backend:**
 - Node.js + Express
-- Apollo Server (GraphQL)
+- Apollo Server
+- GraphQL
 - MongoDB + Mongoose
 - JWT Authentication
-- TypeScript
 
-## 🏃‍♂️ Running Locally
+## 🛠️ Local Development
 
 ### Prerequisites
 - Node.js 18+
-- MongoDB
+- MongoDB Atlas account
 
-### Backend
-```bash
-cd backend
-npm install
-cp .env.example .env
-# Edit .env with your MongoDB URI
-npm run dev
-```
-
-### Frontend
+### Frontend Setup
 ```bash
 cd frontend
 npm install
 cp .env.example .env
+# Update .env with your API URL
 npm run dev
 ```
 
-Visit http://localhost:5173
+### Backend Setup
+```bash
+cd backend
+npm install
+cp .env.example .env
+# Update .env with your MongoDB URI and secrets
+npm run dev
+```
 
-## 📝 License
+## 🚀 Deployment
+
+### Backend (Deploy First)
+
+1. Create new Vercel project
+2. Import repository
+3. Set root directory: `backend`
+4. Add environment variables:
+   - `MONGODB_URI`
+   - `JWT_SECRET`
+   - `FRONTEND_URL`
+5. Deploy
+
+### Frontend (Deploy Second)
+
+1. Create new Vercel project
+2. Import same repository
+3. Set root directory: `frontend`
+4. Add environment variable:
+   - `VITE_API_URL` (your backend URL)
+5. Deploy
+
+## 📝 Environment Variables
+
+**Backend (.env):**
+```
+MONGODB_URI=mongodb+srv://...
+JWT_SECRET=your-secret-key
+FRONTEND_URL=https://your-frontend.vercel.app
+```
+
+**Frontend (.env):**
+```
+VITE_API_URL=https://your-backend.vercel.app/graphql
+```
+
+## 📄 License
 
 MIT

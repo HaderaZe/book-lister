@@ -1,14 +1,24 @@
 {
   "name": "book-lister-backend",
   "version": "1.0.0",
-  "main": "dist/server.js",
+  "description": "Book Lister GraphQL API",
+  "type": "module",
+  "main": "server.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
-    "build": "tsc",
-    "start": "node dist/server.js",
-    "vercel-build": "npm run build"
+    "start": "node server.js",
+    "dev": "node --watch server.js"
   },
-  "engines": {
-    "node": "18.x"
+  "keywords": ["graphql", "apollo", "mongodb"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/server": "^4.9.5",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "graphql": "^16.8.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.0.3"
   }
 }
