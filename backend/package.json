@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "Book Lister GraphQL API",
   "type": "module",
-  "main": "server.js",
+  "main": "api/index.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js"
+    "start": "node api/index.js",
+    "dev": "node --watch api/index.js"
   },
   "keywords": ["graphql", "apollo", "mongodb"],
   "author": "",

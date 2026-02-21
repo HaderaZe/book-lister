@@ -1,13 +1,22 @@
-# Book Lister
+# 📚 Book Lister
 
-Full-stack book management application with GraphQL API.
+A full-stack book management application with React, GraphQL, and MongoDB.
 
 ## 🚀 Live Demo
 
 - **Frontend:** [https://book-lister-frontend.vercel.app](https://book-lister-frontend.vercel.app)
-- **Backend API:** [https://book-lister-api.vercel.app/graphql](https://book-lister-api.vercel.app/graphql)
+- **Backend API:** [https://book-lister-backend.vercel.app](https://book-lister-backend.vercel.app)
 
-## 📋 Tech Stack
+## ✨ Features
+
+- ✅ User authentication (register, login, logout)
+- ✅ Add, view, edit, delete books
+- ✅ Search and filter books
+- ✅ Responsive design with Tailwind CSS
+- ✅ GraphQL API
+- ✅ MongoDB database
+
+## 🛠️ Tech Stack
 
 **Frontend:**
 - React 18 + TypeScript
@@ -23,66 +32,70 @@ Full-stack book management application with GraphQL API.
 - MongoDB + Mongoose
 - JWT Authentication
 
-## 🛠️ Local Development
+## 📦 Local Development
 
 ### Prerequisites
 - Node.js 18+
 - MongoDB Atlas account
 
 ### Frontend Setup
-```bash
+
+\`\`\`bash
 cd frontend
 npm install
 cp .env.example .env
-# Update .env with your API URL
+# Update VITE_API_URL in .env
 npm run dev
-```
+\`\`\`
+
+Visit: http://localhost:5173
 
 ### Backend Setup
-```bash
+
+\`\`\`bash
 cd backend
 npm install
 cp .env.example .env
-# Update .env with your MongoDB URI and secrets
+# Update MONGODB_URI and other vars in .env
 npm run dev
-```
+\`\`\`
+
+Visit: http://localhost:4000/graphql
 
 ## 🚀 Deployment
 
-### Backend (Deploy First)
+### Backend
 
-1. Create new Vercel project
-2. Import repository
-3. Set root directory: `backend`
-4. Add environment variables:
+1. Deploy to Vercel
+2. Set environment variables:
    - `MONGODB_URI`
    - `JWT_SECRET`
    - `FRONTEND_URL`
-5. Deploy
 
-### Frontend (Deploy Second)
+### Frontend
 
-1. Create new Vercel project
-2. Import same repository
-3. Set root directory: `frontend`
-4. Add environment variable:
+1. Deploy to Vercel
+2. Set environment variable:
    - `VITE_API_URL` (your backend URL)
-5. Deploy
 
 ## 📝 Environment Variables
 
-**Backend (.env):**
-```
+**Backend:**
+\`\`\`
 MONGODB_URI=mongodb+srv://...
-JWT_SECRET=your-secret-key
+JWT_SECRET=your-secret
 FRONTEND_URL=https://your-frontend.vercel.app
-```
+\`\`\`
 
-**Frontend (.env):**
-```
+**Frontend:**
+\`\`\`
 VITE_API_URL=https://your-backend.vercel.app/graphql
-```
+\`\`\`
 
 ## 📄 License
 
 MIT
+
+## 👨‍💻 Author
+
+Your Name - [GitHub](https://github.com/HaderaZe)
